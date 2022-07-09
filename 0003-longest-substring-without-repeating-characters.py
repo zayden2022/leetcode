@@ -6,9 +6,9 @@ class Solution:
         if length == 0:
             return 0
         longest = 1
+        chars = {}
         for start in range(length-1):
-            chars = {}
-            index = start
+            index = start + len(chars)
             while True:
                 ch = s[index]
                 if ch in chars:
@@ -16,13 +16,14 @@ class Solution:
                     substr_len = index - start
                     if substr_len > longest:
                         longest = substr_len
+                    del chars[s[start]]
                     break
                 if index == length - 1:
                     # last char in the string
                     substr_len = index - start + 1
                     if substr_len > longest:
                         longest = substr_len
-                    break
+                    return longest
                 index += 1
                 chars[ch] = True
         return longest
